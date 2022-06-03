@@ -18,7 +18,12 @@
   padding:30px
 }
 
-
 .container-box {
   margin: 30px;
 }
+
+.react-loading-skeleton {
+  margin: 10px 25px;
+}
+
+
