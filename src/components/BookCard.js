@@ -1,7 +1,5 @@
 export const BookCard = ({ title, bookId, featured, setSelected }) => {
   const handleClick = () => {
-    console.log('handleclick in BookCard')
-    console.log({ bookId })
     setSelected(bookId)
   }
   return (
