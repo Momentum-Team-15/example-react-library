@@ -1,13 +1,19 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-export const BookDetail = ({ bookId, handleGoBack }) => {
+export const BookDetail = ({ bookId, handleGoBack, token }) => {
   const [book, setBook] = useState(null)
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/books/${bookId}`, {}).then((res) => {
-      setBook(res.data)
-    })
+    axios
+      .get(`https://drf-library-api.herokuapp.com/api/books/${bookId}`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        setBook(res.data)
+      })
   }, [bookId])
 
   return (

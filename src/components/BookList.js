@@ -16,12 +16,18 @@ export const BookList = ({ token, setSelected }) => {
   }
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/books', {}).then((res) => {
-      const bookTitles = res.data.map((obj) => obj.title)
-      setBookTitles(bookTitles)
-      setBooks(res.data)
-      setIsLoading(false)
-    })
+    axios
+      .get('https://drf-library-api.herokuapp.com/api/books', {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        const bookTitles = res.data.map((obj) => obj.title)
+        setBookTitles(bookTitles)
+        setBooks(res.data)
+        setIsLoading(false)
+      })
   }, [token])
 
   if (isLoading) {
@@ -36,7 +42,13 @@ export const BookList = ({ token, setSelected }) => {
   }
 
   if (selectedBook) {
-    return <BookDetail bookId={selectedBook} handleGoBack={handleGoBack} />
+    return (
+      <BookDetail
+        bookId={selectedBook}
+        handleGoBack={handleGoBack}
+        token={token}
+      />
+    )
   }
 
   return (

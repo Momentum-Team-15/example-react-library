@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-export const Login = ({ setAuth }) => {
+export const Login = ({ setAuth, token }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -11,12 +11,13 @@ export const Login = ({ setAuth }) => {
     // when the form submits, make an ajax request to the login endpoint
     // capture the auth token in state
     axios
-      .post('http://127.0.0.1:8000/api/auth/token/login/', {
+      .post('https://drf-library-api.herokuapp.com/api/auth/token/login', {
         username: username,
         password: password,
       })
       .then((res) => {
-        setAuth(username, password)
+        const token = res.data.auth_token
+        setAuth(username, token)
       })
       .catch((error) => {
         setError(error.message)
