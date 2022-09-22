@@ -1,12 +1,13 @@
-import { useState } from 'react'
 import { BookList } from './components/BookList'
 import { Login } from './components/Login'
+
 import './App.css'
 import axios from 'axios'
+import useLocalStorageState from 'use-local-storage-state'
 
 const App = () => {
-  const [token, setToken] = useState(null)
-  const [username, setUsername] = useState('')
+  const [token, setToken] = useLocalStorageState('libraryToken', null)
+  const [username, setUsername] = useLocalStorageState('libraryUsername', '')
 
   const setAuth = (username, token) => {
     setToken(token)
