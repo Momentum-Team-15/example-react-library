@@ -40,7 +40,7 @@ const App = () => {
   return (
     <>
       <header className="header is-flex is-justify-content-space-between">
-        <h1 className="is-size-1">Books</h1>
+        🔖 BookList
         {isLoggedIn && (
           <nav>
             <button className="button" onClick={handleLogout}>
@@ -49,10 +49,17 @@ const App = () => {
           </nav>
         )}
       </header>
-      <div className="logged-in-message">
-        Hello, you're logged in as {username}
-      </div>
-      <BookList token={token} />
+      <main className="container main">
+        {isLoggedIn && (
+          <div className="logged-in-message mt-2">
+            <span class="tag is-info is-light">
+              Hello, you're logged in as {username}
+            </span>
+          </div>
+        )}
+
+        <BookList token={token} isLoggedIn={isLoggedIn} />
+      </main>
     </>
   )
 }

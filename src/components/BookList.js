@@ -5,15 +5,10 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { BookDetail } from './BookDetail'
 
-export const BookList = ({ token, setSelected }) => {
+export const BookList = ({ token, isLoggedIn }) => {
   const [books, setBooks] = useState([])
-  const [bookTitles, setBookTitles] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedBook, setSelectedBook] = useState(null)
-
-  const handleGoBack = () => {
-    setSelectedBook(null)
-  }
+  const [selectedBookId, setSelectedBookId] = useState(null)
 
   useEffect(() => {
     axios
@@ -23,8 +18,6 @@ export const BookList = ({ token, setSelected }) => {
         },
       })
       .then((res) => {
-        const bookTitles = res.data.map((obj) => obj.title)
-        setBookTitles(bookTitles)
         setBooks(res.data)
         setIsLoading(false)
       })
@@ -41,27 +34,29 @@ export const BookList = ({ token, setSelected }) => {
     )
   }
 
-  if (selectedBook) {
+  if (selectedBookId) {
     return (
       <BookDetail
-        bookId={selectedBook}
-        handleGoBack={handleGoBack}
+        bookId={selectedBookId}
         token={token}
+        resetSelected={() => setSelectedBookId(null)}
       />
     )
   }
 
   return (
-    <div className="book-list container-box">
-      {books.map((book) => (
-        <BookCard
-          key={book.pk}
-          title={book.title}
-          bookId={book.pk}
-          featured={book.featured}
-          setSelected={setSelectedBook}
-        />
-      ))}
-    </div>
+    <>
+      <div className="book-list container-box">
+        {books.map((book) => (
+          <BookCard
+            key={book.pk}
+            title={book.title}
+            bookId={book.pk}
+            featured={book.featured}
+            setSelected={setSelectedBookId}
+          />
+        ))}
+      </div>
+    </>
   )
 }
