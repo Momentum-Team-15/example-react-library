@@ -53,7 +53,7 @@ const App = () => {
       <main className="container main">
         {isLoggedIn && (
           <div className="logged-in-message mt-2">
-            <span class="tag is-info is-light">
+            <span className="tag is-info is-light">
               Hello, you're logged in as {username}
             </span>
           </div>
