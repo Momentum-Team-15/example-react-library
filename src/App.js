@@ -1,9 +1,11 @@
 import { BookList } from './components/BookList'
+import { BookDetail } from './components/BookDetail'
 import { Login } from './components/Login'
 
 import './App.css'
 import axios from 'axios'
 import useLocalStorageState from 'use-local-storage-state'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 
 const App = () => {
   const [token, setToken] = useLocalStorageState('libraryToken', null)
@@ -58,8 +60,19 @@ const App = () => {
             </span>
           </div>
         )}
+          <BrowserRouter>
+            <nav>
+              <ul>
+                <li><Link to={"/books"}>Book List</Link></li>
+              </ul>
+            </nav>
+            <Routes>
+              <Route path="/books" element={<BookList token={token} isLoggedIn={isLoggedIn} />} />
+              <Route path="/books/:bookId" element={<BookDetail token={token} />} />
+              <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setAuth={setAuth}/>} />
+            </Routes>
+          </BrowserRouter>
 
-        <BookList token={token} isLoggedIn={isLoggedIn} />
       </main>
     </>
   )

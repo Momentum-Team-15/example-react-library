@@ -1,9 +1,12 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-export const BookDetail = ({ token, bookId, resetSelected }) => {
+export const BookDetail = ({ token, resetSelected }) => {
   const [book, setBook] = useState(null)
   const [error, setError] = useState(null)
+  const { bookId } = useParams()
+  // { bookId: 2 }
 
   useEffect(() => {
     axios
